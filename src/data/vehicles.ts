@@ -33,7 +33,7 @@ export const vehicles: Vehicle[] = [
   {
     id: "radar-rd6",
     name: "Radar RD6",
-    brand: "Moja",
+    brand: "Transbiz",
     category: "Pick Up",
     seats: 5,
     range: "461 km",
@@ -43,7 +43,7 @@ export const vehicles: Vehicle[] = [
   {
     id: "pioneer-mv5",
     name: "Pioneer MV5",
-    brand: "Moja",
+    brand: "Transbiz",
     category: "Matatu",
     seats: 14,
     range: "300-400 km",
@@ -53,7 +53,7 @@ export const vehicles: Vehicle[] = [
   {
     id: "city-bus-h1",
     name: "City Bus H1",
-    brand: "Moja",
+    brand: "Transbiz",
     category: "Bus",
     seats: "30+",
     range: "300 km",

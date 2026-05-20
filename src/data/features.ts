@@ -21,7 +21,7 @@ export const features: Feature[] = [
   {
     icon: Battery,
     title: "Long Range",
-    description: "Up to 550km per charge — go further",
+    description: "Up to 550km per charge - go further",
   },
   {
     icon: VolumeX,
@@ -53,7 +53,7 @@ export interface FAQItem {
 export const faqItems: FAQItem[] = [
   {
     question: "What charging options are available across Africa?",
-    answer: "Moja EV is actively expanding charging infrastructure across East Africa. We offer home charging solutions, workplace charging, and public charging stations in major cities. Our network is growing rapidly, with plans to install fast-charging stations along major highways and in urban centers throughout Kenya, Uganda, and Tanzania.",
+    answer: "Transbiz is actively expanding charging infrastructure across East Africa. We offer home charging solutions, workplace charging, and public charging stations in major cities. Our network is growing rapidly, with plans to install fast-charging stations along major highways and in urban centers throughout Kenya, Uganda, and Tanzania.",
   },
   {
     question: "How long does the battery last before replacement?",
@@ -61,11 +61,11 @@ export const faqItems: FAQItem[] = [
   },
   {
     question: "What are the maintenance costs compared to petrol cars?",
-    answer: "Electric vehicles typically cost 40-60% less to maintain than petrol vehicles. EVs have fewer moving parts — no engine oil changes, no spark plugs, no exhaust systems, and reduced brake wear due to regenerative braking. This translates to significant savings over the lifetime of the vehicle.",
+    answer: "Electric vehicles typically cost 40-60% less to maintain than petrol vehicles. EVs have fewer moving parts - no engine oil changes, no spark plugs, no exhaust systems, and reduced brake wear due to regenerative braking. This translates to significant savings over the lifetime of the vehicle.",
   },
   {
     question: "Do you offer financing or leasing options?",
-    answer: "Yes! Moja EV partners with leading financial institutions to offer flexible financing and leasing options. Our EV leasing program is particularly popular with taxi and matatu operators, allowing them to transition to electric without high upfront costs. Contact our sales team to learn about current financing rates.",
+    answer: "Yes! Transbiz partners with leading financial institutions to offer flexible financing and leasing options. Our EV leasing program is particularly popular with taxi and matatu operators, allowing them to transition to electric without high upfront costs. Contact our sales team to learn about current financing rates.",
   },
   {
     question: "Can I charge the vehicle at home with regular electricity?",
@@ -73,7 +73,7 @@ export const faqItems: FAQItem[] = [
   },
   {
     question: "What warranty and after-sales service do you provide?",
-    answer: "All Moja EV vehicles come with a comprehensive warranty: 5 years/100,000 km vehicle warranty and 8 years/200,000 km battery warranty. We have authorized service centers in Nairobi with trained EV technicians, and we offer 24/7 roadside assistance, genuine spare parts, and regular software updates.",
+    answer: "All Transbiz vehicles come with a comprehensive warranty: 5 years/100,000 km vehicle warranty and 8 years/200,000 km battery warranty. We have authorized service centers in Nairobi with trained EV technicians, and we offer 24/7 roadside assistance, genuine spare parts, and regular software updates.",
   },
 ];
 
@@ -121,7 +121,7 @@ export const articles: Article[] = [
     category: "Charging",
     date: "Dec 2025",
     readTime: "8 min read",
-    excerpt: "Everything you need to know about installing a home charging station — costs, requirements, and best practices.",
+    excerpt: "Everything you need to know about installing a home charging station - costs, requirements, and best practices.",
     image: "/images/article-home-charging.jpg",
   },
   {

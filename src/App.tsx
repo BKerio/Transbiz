@@ -9,6 +9,8 @@ import About from "@/pages/About";
 import Vehicles from "@/pages/Vehicles";
 import Technology from "@/pages/Technology";
 import Contact from "@/pages/Contact";
+import Terms from "@/pages/Terms";
+import Privacy from "@/pages/Privacy";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -77,6 +79,22 @@ export default function App() {
             element={
               <PageWrapper>
                 <Contact />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/terms"
+            element={
+              <PageWrapper>
+                <Terms />
+              </PageWrapper>
+            }
+          />
+          <Route
+            path="/privacy"
+            element={
+              <PageWrapper>
+                <Privacy />
               </PageWrapper>
             }
           />

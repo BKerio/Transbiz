@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { label: "HOME", path: "/" },
@@ -60,13 +61,8 @@ export default function Navbar() {
       >
         <div className="content-max-width w-full flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-0 shrink-0">
-            <span className="font-heading font-bold text-xl text-white tracking-tight">
-              MOJA<span className="text-brand">E</span>V
-            </span>
-            <span className="hidden sm:block text-[10px] text-txt-muted ml-1 mt-1 font-body">
-              Kenya Limited
-            </span>
+          <Link to="/" className="flex items-center shrink-0">
+            <img src={logo} alt="Transbiz Logo" className="h-12 w-auto object-contain rounded-sm" />
           </Link>
 
           {/* Desktop Nav */}

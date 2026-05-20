@@ -91,7 +91,7 @@ function HeroSection() {
           {/* Left Column */}
           <div className="max-w-[720px]">
             <span className="hero-label inline-block text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-gray-400 mb-6 opacity-0">
-              WELCOME TO MOJA EV
+              WELCOME TO TRANSBIZ
             </span>
             <h1 className="hero-title font-heading font-bold text-[clamp(34px,5vw,64px)] leading-[1.1] text-white opacity-0">
               Clean Energy, Smart Drives, A Greener Tomorrow
@@ -101,7 +101,7 @@ function HeroSection() {
           {/* Right Column */}
           <div className="max-w-[500px] lg:mb-2">
             <p className="hero-desc text-sm md:text-base text-gray-300 leading-relaxed opacity-0">
-              Drive the change with Moja EV—where clean energy meets smart drive technology
+              Drive the change with Transbiz - where clean energy meets smart drive technology
               for a smoother, greener tomorrow. Join us in powering the future, one ride at a time.
             </p>
             <div className="hero-ctas flex flex-wrap gap-4 mt-8 opacity-0">
@@ -133,57 +133,113 @@ function WhyChooseUs() {
       label: "INNOVATION",
       title: "Future Technology",
       desc: "Advanced EV platforms built for African roads with smart connectivity, digital cockpit, and cutting-edge autonomous features for a truly modern driving experience.",
-      image: "/images/feature-innovation.jpg",
+      bg: "bg-[#0B1221]",
+      widthClass: "w-full",
+      illustration: (
+        <svg className="absolute right-0 top-12 w-48 h-48 text-white opacity-[0.03]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
+          <path d="M0,50 Q25,25 50,50 T100,50" />
+          <path d="M0,60 Q25,35 50,60 T100,60" />
+          <circle cx="80" cy="30" r="2" />
+        </svg>
+      ),
     },
     {
       num: "02",
       label: "SUSTAINABILITY",
       title: "Green Mobility",
       desc: "Zero emissions, clean energy solutions powering sustainable transportation across the continent. Join the movement for a cleaner, greener Africa.",
-      image: "/images/feature-sustainability.jpg",
+      bg: "bg-[#1E293B]",
+      widthClass: "w-full md:w-[calc(100%-3rem)]",
+      illustration: (
+        <svg className="absolute right-0 top-12 w-48 h-48 text-white opacity-[0.03]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
+          <path d="M20,80 L40,50 L60,70 L90,20" />
+          <rect x="85" y="15" width="10" height="10" transform="rotate(45 90 20)" />
+        </svg>
+      ),
     },
     {
       num: "03",
       label: "PERFORMANCE",
       title: "Comfort Driving",
       desc: "Smart interiors, smooth performance, and whisper-quiet rides redefining luxury travel. Experience the perfect blend of comfort and power.",
-      image: "/images/feature-performance.jpg",
+      bg: "bg-[#334155]",
+      widthClass: "w-full md:w-[calc(100%-6rem)]",
+      illustration: (
+        <svg className="absolute right-0 bottom-4 w-48 h-48 text-white opacity-[0.03]" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
+          <circle cx="100" cy="100" r="40" />
+          <circle cx="100" cy="100" r="60" />
+          <circle cx="100" cy="100" r="80" />
+          <line x1="70" y1="30" x2="90" y2="50" />
+        </svg>
+      ),
     },
   ];
 
   return (
-    <section className="bg-bg-secondary section-padding">
+    <section className="bg-white py-24 md:py-32 relative">
       <div className="content-max-width">
-        <SectionHeader label="WHY CHOOSE US" title="Driving the Future" light />
+        <div className="text-center mb-16 md:mb-24">
+          <span className="block text-xs font-bold uppercase tracking-[0.15em] text-[#22c55e] mb-3">
+            WHY CHOOSE US
+          </span>
+          <h2 className="font-heading font-bold text-3xl md:text-5xl text-[#0B1221]">
+            Driving the Future
+          </h2>
+        </div>
 
-        <div className="space-y-8 mt-12">
+        <div className="relative pb-10">
           {featuresData.map((f, i) => (
-            <ScrollReveal key={i} delay={i * 0.1}>
-              <div className="bg-white rounded-2xl p-6 md:p-10 grid grid-cols-1 md:grid-cols-[55%_45%] gap-6 md:gap-10 items-center">
-                <div className="order-2 md:order-1">
-                  <span className="text-[clamp(48px,6vw,80px)] font-heading font-bold text-[rgba(10,10,10,0.06)] leading-none">
-                    {f.num}
-                  </span>
-                  <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-brand mt-2">
-                    {f.label}
-                  </span>
-                  <h3 className="font-heading font-semibold text-xl text-txt-dark mt-3">
+            <div
+              key={i}
+              className="sticky flex justify-center w-full"
+              style={{
+                top: `${100 + i * 24}px`,
+                zIndex: i + 1,
+                marginBottom: i !== featuresData.length - 1 ? '15vh' : '0',
+              }}
+            >
+              <div
+                className={`${f.bg} ${f.widthClass} rounded-2xl md:rounded-[2rem] p-8 md:p-12 lg:p-14 shadow-2xl relative overflow-hidden flex flex-col justify-between min-h-[280px] md:min-h-[340px] transition-all duration-500`}
+              >
+                {/* Content */}
+                <div className="relative z-10 w-full max-w-2xl">
+                  <div className="flex items-center gap-2 mb-4 md:mb-5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#22c55e] shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
+                    <span className="text-[11px] md:text-xs font-bold uppercase tracking-[0.15em] text-[#22c55e]">
+                      {f.label}
+                    </span>
+                  </div>
+                  <h3 className="font-heading font-bold text-2xl md:text-4xl text-white mb-3 md:mb-5 tracking-tight">
                     {f.title}
                   </h3>
-                  <p className="mt-2 text-sm text-txt-dark-secondary leading-relaxed">
+                  <p className="text-sm md:text-[15px] text-white/70 leading-[1.8] max-w-xl">
                     {f.desc}
                   </p>
                 </div>
-                <div className="order-1 md:order-2 rounded-xl overflow-hidden">
-                  <img
-                    src={f.image}
-                    alt={f.title}
-                    loading="lazy"
-                    className="w-full h-full object-cover aspect-video"
-                  />
+
+                {/* Bottom indicators */}
+                <div className="relative z-10 flex items-center gap-2 mt-10 md:mt-16">
+                  {[0, 1, 2].map((idx) => (
+                    <div
+                      key={idx}
+                      className={`h-1.5 rounded-full transition-all duration-500 ${
+                        idx === i ? "w-8 bg-[#22c55e] shadow-[0_0_8px_rgba(34,197,94,0.4)]" : "w-1.5 bg-white/20"
+                      }`}
+                    />
+                  ))}
                 </div>
+
+                {/* Giant Number Background */}
+                <div className="absolute right-6 bottom-4 md:right-12 md:bottom-6 pointer-events-none select-none z-10">
+                  <span className="font-heading font-bold text-[70px] md:text-[100px] leading-none text-white/[0.04] tracking-tighter">
+                    {f.num}
+                  </span>
+                </div>
+
+                {/* Decorative SVG */}
+                {f.illustration}
               </div>
-            </ScrollReveal>
+            </div>
           ))}
         </div>
       </div>
@@ -361,7 +417,7 @@ function CustomerStories() {
   return (
     <section className="bg-bg-secondary section-padding">
       <div className="content-max-width">
-        <SectionHeader label="OUR STORIES" title="Life at Moja EV" light />
+        <SectionHeader label="OUR STORIES" title="Life at Transbiz" light />
 
         <ScrollReveal stagger={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-12">

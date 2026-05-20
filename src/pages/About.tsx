@@ -45,7 +45,7 @@ function HeroSection() {
           ABOUT US
         </span>
         <h1 className="animate-in font-heading font-bold text-[clamp(36px,4vw,56px)] leading-[1.1] tracking-[-0.02em] text-white opacity-0">
-          MojaEV Kenya Limited
+          Transbiz Kenya Limited
         </h1>
         <p className="animate-in mt-6 text-lg text-txt-secondary max-w-[700px] mx-auto leading-relaxed opacity-0">
           A Kenyan-registered electric mobility company driving the transition to clean,
@@ -68,7 +68,7 @@ function MissionSection() {
             <p className="mt-6 text-lg text-txt-dark-secondary leading-relaxed">
               To accelerate the adoption of electric vehicles by delivering cost-efficient,
               environmentally sustainable mobility solutions tailored to African operating
-              conditions. We focus on practical innovation — solutions that work on our roads,
+              conditions. We focus on practical innovation - solutions that work on our roads,
               for our businesses, and for our people.
             </p>
           </div>
@@ -93,7 +93,7 @@ function SolutionsSection() {
         <SectionHeader
           label="OUR SOLUTIONS"
           title="What We Do"
-          subtitle="MojaEV provides end-to-end electric mobility solutions across commercial and public transport segments."
+          subtitle="Transbiz provides end-to-end electric mobility solutions across commercial and public transport segments."
         />
         <ScrollReveal stagger={0.1}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 max-w-[900px] mx-auto">
@@ -133,7 +133,7 @@ function ImpactSection() {
         <ScrollReveal>
           <div className="max-w-[800px] mx-auto text-center space-y-6">
             <p className="text-lg text-txt-dark-secondary leading-[1.7]">
-              Since its inception, MojaEV has focused on building solutions that align
+              Since its inception, Transbiz has focused on building solutions that align
               environmental sustainability with economic growth. Our flagship EV leasing
               program for the taxi industry has opened the door for drivers and fleet
               operators to transition to electric vehicles without the burden of high upfront
@@ -141,7 +141,7 @@ function ImpactSection() {
             </p>
             <p className="text-lg text-txt-dark-secondary leading-[1.7]">
               Through strategic partnerships and a growing support ecosystem, we are enabling
-              the expansion of electric public service vehicles (PSVs) across Kenya —
+              the expansion of electric public service vehicles (PSVs) across Kenya -
               empowering drivers, reducing operating costs, and lowering emissions at scale.
             </p>
           </div>
@@ -162,13 +162,13 @@ function VisionSection() {
               Our Vision
             </h2>
             <p className="mt-6 text-lg text-txt-dark-secondary leading-relaxed">
-              MojaEV is committed to making electric mobility accessible, practical, and
+              Transbiz is committed to making electric mobility accessible, practical, and
               commercially viable for businesses and individuals alike. Beyond vehicle supply,
-              we are building the foundations of a sustainable EV ecosystem — one that
+              we are building the foundations of a sustainable EV ecosystem - one that
               positions Kenya as a leader in electric mobility across Africa.
             </p>
             <p className="mt-6 text-base font-semibold text-txt-dark">
-              The future of transport is electric. At MojaEV, we&apos;re making it happen — today.
+              The future of transport is electric. At Transbiz, we&apos;re making it happen - today.
             </p>
           </div>
         </ScrollReveal>

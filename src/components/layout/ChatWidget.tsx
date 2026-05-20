@@ -20,12 +20,12 @@ const botReplies: Record<string, string> = {
   "View Vehicles": "You can explore our full range of electric vehicles on the Vehicles page. We have SUVs, pickups, matatus, and buses!",
   "Book Test Drive": "Great choice! Please visit our Contact page or call us at +254 113 778 888 to schedule your test drive.",
   "Get Pricing": "Our vehicles start from competitive prices with flexible financing options. Contact our sales team for detailed pricing.",
-  "Contact Sales": "You can reach our sales team at Info@mojaevafrica.com or call +254 113 778 888. We're available Mon-Fri, 8am to 6pm.",
+  "Contact Sales": "You can reach our sales team at Info@transbiz.com or call +254 113 778 888. We're available Mon-Fri, 8am to 6pm.",
   "Visit Showroom": "Our showroom is located on Ngong Rd, Nairobi, Next to Rubis. We're open Mon-Sat: 8am-8pm, Sunday: 10am-4pm.",
 };
 
 const defaultReply =
-  "Thank you for your message! Our team will get back to you shortly. For immediate assistance, please call us at +254 113 778 888 or email Info@mojaevafrica.com.";
+  "Thank you for your message! Our team will get back to you shortly. For immediate assistance, please call us at +254 113 778 888 or email Info@transbiz.com.";
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +33,7 @@ export default function ChatWidget() {
     {
       id: "welcome",
       type: "bot",
-      text: "Hello! I'm MojaAI, your electric vehicle assistant. How can I help you today?",
+      text: "Hello! I'm TransbizAI, your electric vehicle assistant. How can I help you today?",
     },
   ]);
   const [input, setInput] = useState("");

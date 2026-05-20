@@ -24,7 +24,7 @@ function HeroSection() {
           Explore Our Electric Fleet
         </h1>
         <p className="mt-4 text-lg text-txt-secondary max-w-[600px] leading-relaxed">
-          From urban commuters to rugged adventurers, discover the Moja EV that fits your
+          From urban commuters to rugged adventurers, discover the Transbiz vehicle that fits your
           lifestyle.
         </p>
         <div className="flex items-center gap-3 mt-8">

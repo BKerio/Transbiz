@@ -35,7 +35,7 @@ function HeroSection() {
       <div className="absolute inset-0">
         <img
           src="/images/hero-car.jpg"
-          alt="Contact Moja EV"
+          alt="Contact Transbiz"
           className="w-full h-full object-cover opacity-30"
         />
         <div className="absolute inset-0 bg-[rgba(5,5,5,0.7)]" />
@@ -45,7 +45,7 @@ function HeroSection() {
           GET IN TOUCH
         </span>
         <h1 className="animate-in font-heading font-bold text-[clamp(36px,4vw,56px)] leading-[1.1] tracking-[-0.02em] text-white opacity-0">
-          Contact Moja EV
+          Contact Transbiz
         </h1>
         <p className="animate-in mt-6 text-lg text-txt-secondary max-w-[600px] mx-auto leading-relaxed opacity-0">
           Ready to join the electric revolution? Have questions? We&apos;d love to hear from you.
@@ -80,7 +80,7 @@ function ContactFormSection() {
     {
       icon: Mail,
       title: "Email Us",
-      detail: "Info@mojaevafrica.com",
+      detail: "Info@transbiz.com",
       sub: "We'll respond within 24 hours",
     },
     {

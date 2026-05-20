@@ -10,17 +10,17 @@ const exploreLinks = [
 
 const companyLinks = [
   { label: "About Us", path: "/about" },
-  { label: "Careers", path: "#" },
-  { label: "Press", path: "#" },
+  { label: "Careers", path: "/" },
+  { label: "Press", path: "/" },
   { label: "Contact", path: "/contact" },
 ];
 
 const socialLinks = [
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Twitter, href: "#", label: "Twitter" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Youtube, href: "#", label: "YouTube" },
+  { icon: Facebook, href: "/", label: "Facebook" },
+  { icon: Twitter, href: "/", label: "Twitter" },
+  { icon: Instagram, href: "/", label: "Instagram" },
+  { icon: Linkedin, href: "/", label: "LinkedIn" },
+  { icon: Youtube, href: "/", label: "YouTube" },
 ];
 
 export default function Footer() {
@@ -33,7 +33,7 @@ export default function Footer() {
           <div>
             <Link to="/" className="inline-block">
               <span className="font-heading font-bold text-2xl text-white tracking-tight">
-                MOJA<span className="text-brand">E</span>V
+                TRANS<span className="text-brand">BIZ</span>
               </span>
               <span className="block text-[10px] text-txt-muted font-body mt-0.5">
                 Kenya Limited
@@ -102,7 +102,7 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5 text-sm text-txt-secondary">
                 <Mail size={16} className="text-brand mt-0.5 shrink-0" />
-                <span>Info@mojaevafrica.com</span>
+                <span>Info@transbiz.com</span>
               </li>
               <li className="flex items-start gap-2.5 text-sm text-txt-secondary">
                 <Phone size={16} className="text-brand mt-0.5 shrink-0" />
@@ -147,15 +147,15 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-10 pt-6 border-t border-border-dark flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-txt-muted">
-            &copy; 2024 Moja EV Africa. All rights reserved. | Powered by Esoteric Strats
+            &copy; 2026 Transbiz Africa. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-xs text-txt-muted hover:text-txt-primary transition-colors">
+            <Link to="/privacy" className="text-xs text-txt-muted hover:text-txt-primary transition-colors">
               Privacy Policy
-            </a>
-            <a href="#" className="text-xs text-txt-muted hover:text-txt-primary transition-colors">
+            </Link>
+            <Link to="/terms" className="text-xs text-txt-muted hover:text-txt-primary transition-colors">
               Terms of Service
-            </a>
+            </Link>
           </div>
         </div>
       </div>

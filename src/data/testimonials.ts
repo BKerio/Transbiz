@@ -37,7 +37,7 @@ export const testimonials: Testimonial[] = [
     initial: "E",
     name: "Esther Akinyi",
     role: "Customer",
-    quote: "I recently bought a Neta EV from Moja EV Africa, and I'm absolutely thrilled! The vehicle delivers a smooth, comfortable ride with cutting-edge features, all while being eco-friendly.",
+    quote: "I recently bought a Neta EV from Transbiz Africa, and I'm absolutely thrilled! The vehicle delivers a smooth, comfortable ride with cutting-edge features, all while being eco-friendly.",
     date: "24 June 2024",
   },
   {
@@ -45,7 +45,7 @@ export const testimonials: Testimonial[] = [
     initial: "P",
     name: "Peter Ochieng",
     role: "Customer",
-    quote: "My Neta EV from Moja EV Africa has been a fantastic investment! It's efficient, stylish, and the driving experience is second to none.",
+    quote: "My Neta EV from Transbiz Africa has been a fantastic investment! It's efficient, stylish, and the driving experience is second to none.",
     date: "24 June 2024",
   },
   {
@@ -53,7 +53,7 @@ export const testimonials: Testimonial[] = [
     initial: "F",
     name: "Fatuma Hassan",
     role: "Customer",
-    quote: "I purchased a Skyworth electric car through Moja EV Africa, and I'm incredibly impressed with the quality and performance. Their customer service was outstanding.",
+    quote: "I purchased a Skyworth electric car through Transbiz Africa, and I'm incredibly impressed with the quality and performance. Their customer service was outstanding.",
     date: "24 June 2024",
   },
 ];
