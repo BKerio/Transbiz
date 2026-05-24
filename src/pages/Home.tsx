@@ -718,25 +718,141 @@ function TestimonialsSection() {
   );
 }
 
-function TrustedBy() {
-  const partners = ["Kenya Power", "KCB Bank", "Safaricom", "Naivas", "Kenya Airways", "NCBA", "M-KOPA", "BasiGo"];
+// ── Partner logo data with Clearbit domains ────────────────────────────────
+const partnerRow1 = [
+  { name: "Safaricom",     domain: "safaricom.co.ke"      },
+  { name: "KCB Bank",      domain: "kcbgroup.com"          },
+  { name: "Kenya Airways", domain: "kenya-airways.com"     },
+  { name: "NCBA",          domain: "ncbagroup.com"         },
+  { name: "Kenya Power",   domain: "kplc.co.ke"            },
+  { name: "Equity Bank",   domain: "equitybankgroup.com"   },
+  { name: "Stanbic Bank",  domain: "stanbicbank.co.ke"     },
+  { name: "Absa Kenya",    domain: "absa.co.ke"            },
+];
 
+const partnerRow2 = [
+  { name: "M-KOPA",        domain: "m-kopa.com"            },
+  { name: "BasiGo",        domain: "basigo.africa"          },
+  { name: "Naivas",        domain: "naivas.co.ke"           },
+  { name: "Twiga Foods",   domain: "twiga.com"              },
+  { name: "Jumia Kenya",   domain: "jumia.co.ke"            },
+  { name: "Sendy",         domain: "sendy.co.ke"            },
+  { name: "Kopesha",       domain: "kopesha.com"            },
+  { name: "Sunculture",    domain: "sunculture.io"          },
+];
+
+function LogoCard({ name, domain }: { name: string; domain: string }) {
+  const [imgOk, setImgOk] = useState(true);
   return (
-    <section className="bg-bg-secondary py-16">
-      <div className="content-max-width text-center">
-        <p className="text-base text-txt-dark-secondary mb-10">
-          Trusted by leading organizations across Africa
-        </p>
-        <ScrollReveal>
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-            {partners.map((p) => (
+    <div className="flex-shrink-0 flex items-center justify-center gap-3 px-6 py-4 mx-3 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 group min-w-[160px]">
+      {imgOk ? (
+        <img
+          src={`https://logo.clearbit.com/${domain}`}
+          alt={name}
+          onError={() => setImgOk(false)}
+          className="h-7 w-auto object-contain opacity-70 group-hover:opacity-100 transition-opacity duration-300"
+        />
+      ) : (
+        <span className="w-7 h-7 rounded-md bg-brand/10 flex items-center justify-center text-brand font-black text-sm">
+          {name[0]}
+        </span>
+      )}
+      <span className="text-sm font-bold text-gray-500 group-hover:text-gray-800 transition-colors duration-300 whitespace-nowrap">
+        {name}
+      </span>
+    </div>
+  );
+}
+
+function InfiniteRow({
+  items,
+  reverse = false,
+}: {
+  items: { name: string; domain: string }[];
+  reverse?: boolean;
+}) {
+  // Triple for seamless -33.333% keyframe loop
+  const tripled = [...items, ...items, ...items];
+  return (
+    <div className="overflow-hidden w-full marquee-track">
+      <div
+        className={`flex w-max marquee-content ${
+          reverse ? "animate-marquee-right" : "animate-marquee-left"
+        }`}
+      >
+        {tripled.map((p, i) => (
+          <LogoCard key={`${p.domain}-${i}`} name={p.name} domain={p.domain} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function TrustedBy() {
+  return (
+    <section className="relative bg-[#F6F7FA] overflow-hidden py-20 md:py-28">
+      {/* Subtle grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage:
+            "linear-gradient(#000 1px,transparent 1px),linear-gradient(90deg,#000 1px,transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+
+      <div className="relative z-10">
+        {/* Header */}
+        <div className="content-max-width text-center mb-14">
+          <ScrollReveal>
+            <span className="inline-block text-[10px] font-bold uppercase tracking-[0.2em] text-brand mb-4">
+              Our Partners
+            </span>
+            <h2 className="font-heading font-black text-3xl md:text-5xl text-gray-900 leading-tight">
+              Trusted by Africa's{" "}
               <span
-                key={p}
-                className="text-lg md:text-xl font-heading font-bold text-txt-dark-muted/50 hover:text-txt-dark/80 transition-all duration-300 cursor-default"
+                style={{
+                  background:
+                    "linear-gradient(135deg,#22c55e 0%,#16a34a 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
               >
-                {p}
+                Leading Brands
               </span>
-            ))}
+            </h2>
+            <p className="mt-4 text-base text-gray-500 max-w-[500px] mx-auto leading-relaxed">
+              From Kenya's largest telecoms to pioneering fintechs — the continent's biggest names power their fleets with Transbiz.
+            </p>
+          </ScrollReveal>
+        </div>
+
+        {/* Dual infinite marquee rows */}
+        <div className="flex flex-col gap-4">
+          <InfiniteRow items={partnerRow1} />
+          <InfiniteRow items={partnerRow2} reverse />
+        </div>
+
+        {/* Bottom stat strip */}
+        <ScrollReveal>
+          <div className="content-max-width mt-16">
+            <div className="grid grid-cols-3 divide-x divide-gray-200 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              {[
+                { value: "50+", label: "Corporate Partners" },
+                { value: "6", label: "Countries" },
+                { value: "KSh 2B+", label: "Fleet Value Managed" },
+              ].map((s, i) => (
+                <div key={i} className="flex flex-col items-center py-7 px-4">
+                  <span className="font-heading font-black text-2xl md:text-3xl text-gray-900">
+                    {s.value}
+                  </span>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-gray-400 mt-1 text-center">
+                    {s.label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </ScrollReveal>
       </div>
