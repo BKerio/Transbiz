@@ -114,7 +114,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2.5 text-sm text-txt-secondary">
                 <MapPin size={16} className="text-brand mt-0.5 shrink-0" />
-                <span>Ngong Rd, Nairobi, Next to Rubis</span>
+                <span>Kiambere Road, Manga House, Nairobi</span>
               </li>
             </ul>
           </div>

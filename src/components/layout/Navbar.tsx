@@ -52,70 +52,96 @@ export default function Navbar() {
 
   return (
     <>
+      {/* ── White Navbar ── */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 h-[72px] flex items-center transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 h-[80px] flex items-center bg-white transition-all duration-300 ${
           scrolled
-            ? "bg-[rgba(5,5,5,0.92)] backdrop-blur-[16px] border-b border-border-dark"
-            : "bg-transparent"
+            ? "shadow-[0_2px_24px_rgba(0,0,0,0.08)] border-b border-gray-100"
+            : "border-b border-gray-200"
         }`}
       >
         <div className="content-max-width w-full flex items-center justify-between">
-          {/* Logo */}
+
+          {/* Logo — white bg on white bar = perfect rendering */}
           <Link to="/" className="flex items-center shrink-0">
-            <img src={logo} alt="Transbiz Logo" className="h-12 w-auto object-contain rounded-sm" />
+            <img
+              src={logo}
+              alt="Transbiz Logo"
+              className="h-14 w-auto object-contain"
+            />
           </Link>
 
-          {/* Desktop Nav */}
+          {/* Desktop Nav Links */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
-                className={`text-sm font-medium tracking-[0.02em] transition-colors duration-200 ${
+                className={`relative text-sm font-semibold tracking-[0.04em] transition-colors duration-200 group ${
                   isActive(link.path)
                     ? "text-brand"
-                    : "text-txt-secondary hover:text-txt-primary"
+                    : "text-gray-700 hover:text-brand"
                 }`}
               >
                 {link.label}
+                {/* Animated green underline */}
+                <span
+                  className={`absolute -bottom-1 left-0 h-[2px] bg-brand rounded-full transition-all duration-300 ${
+                    isActive(link.path) ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
               </Link>
             ))}
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-2 sm:gap-4">
-            {/* WhatsApp */}
+          <div className="flex items-center gap-2 sm:gap-3">
+
+            {/* WhatsApp icon */}
             <a
               href="https://wa.me/+254747468481"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/40 items-center justify-center text-white hover:bg-white/10 transition-all duration-300"
+              className="hidden sm:flex w-10 h-10 rounded-full border border-gray-200 items-center justify-center text-gray-500 hover:border-brand hover:text-brand hover:bg-brand/5 transition-all duration-300"
               aria-label="WhatsApp"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9Z" />
                 <path d="M9 10a.5.5 0 0 0 1 0V9a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
               </svg>
             </a>
-            {/* Phone */}
+
+            {/* Phone icon */}
             <a
               href="tel:+254113778888"
-              className="hidden sm:flex w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-white/40 items-center justify-center text-white hover:bg-white/10 transition-all duration-300"
+              className="hidden sm:flex w-10 h-10 rounded-full border border-gray-200 items-center justify-center text-gray-500 hover:border-brand hover:text-brand hover:bg-brand/5 transition-all duration-300"
               aria-label="Call"
             >
               <Phone size={18} />
             </a>
-            {/* CTA */}
+
+            {/* CTA button */}
             <Link
               to="/contact"
-              className="hidden md:inline-flex items-center px-6 py-2.5 border border-white/50 text-white text-sm font-semibold rounded-full hover:bg-white/10 transition-all duration-300"
+              className="hidden md:inline-flex items-center px-5 py-2.5 bg-brand text-white text-sm font-semibold rounded-full hover:bg-brand-hover shadow-sm hover:shadow-lg transition-all duration-300"
             >
               GET IN TOUCH
             </Link>
-            {/* Mobile Menu Toggle */}
+
+            {/* Mobile hamburger */}
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden w-10 h-10 flex items-center justify-center text-white"
+              className="lg:hidden w-10 h-10 flex items-center justify-center text-gray-700 hover:text-brand transition-colors duration-200"
               aria-label="Toggle menu"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
@@ -124,7 +150,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* ── Mobile Full-Screen Overlay ── */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -136,11 +162,12 @@ export default function Navbar() {
           >
             <button
               onClick={() => setMobileOpen(false)}
-              className="absolute top-5 right-5 w-10 h-10 flex items-center justify-center text-white"
+              className="absolute top-5 right-5 w-10 h-10 flex items-center justify-center text-white hover:text-brand transition-colors"
               aria-label="Close menu"
             >
               <X size={28} />
             </button>
+
             <div className="flex flex-col items-center gap-8">
               {navLinks.map((link, i) => (
                 <motion.div
@@ -153,14 +180,15 @@ export default function Navbar() {
                   <Link
                     to={link.path}
                     onClick={() => setMobileOpen(false)}
-                    className={`text-xl font-heading font-semibold ${
-                      isActive(link.path) ? "text-brand" : "text-white"
+                    className={`text-xl font-heading font-semibold transition-colors ${
+                      isActive(link.path) ? "text-brand" : "text-white hover:text-brand"
                     }`}
                   >
                     {link.label}
                   </Link>
                 </motion.div>
               ))}
+
               <motion.div
                 initial={{ x: 30, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -170,7 +198,7 @@ export default function Navbar() {
                 <Link
                   to="/contact"
                   onClick={() => setMobileOpen(false)}
-                  className="inline-flex items-center px-8 py-3 border border-white/50 text-white text-sm font-semibold rounded-full hover:bg-white/10 transition-all duration-300 mt-4"
+                  className="inline-flex items-center px-8 py-3 bg-brand text-white text-sm font-semibold rounded-full hover:bg-brand-hover transition-all duration-300 mt-4"
                 >
                   GET IN TOUCH
                 </Link>

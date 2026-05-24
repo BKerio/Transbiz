@@ -92,8 +92,7 @@ function ContactFormSection() {
     {
       icon: MapPin,
       title: "Visit Us",
-      detail: "Ngong Rd, Nairobi",
-      sub: "Next to Rubis",
+      detail: "Kiambere Road, Manga House, Nairobi",
     },
     {
       icon: Clock,
