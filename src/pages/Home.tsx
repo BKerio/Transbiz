@@ -1,9 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
-import { Zap, Leaf, Battery, VolumeX, Wrench, Car, Bus, ArrowRight } from "lucide-react";
+import { Zap, Leaf, Battery, VolumeX, Wrench, Car, Bus, ArrowRight, ChevronDown } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import VehicleCard from "@/components/shared/VehicleCard";
@@ -13,118 +13,331 @@ import FAQAccordion from "@/components/shared/FAQAccordion";
 import { vehicles, categories } from "@/data/vehicles";
 import { testimonials } from "@/data/testimonials";
 import { features, faqItems } from "@/data/features";
+import video1 from "@/assets/video-1.mp4";
+import video2 from "@/assets/video-2.mp4";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const featureIcons = [Zap, Leaf, Battery, VolumeX, Wrench, Car, Bus];
 
-function HeroSection() {
-  const heroRef = useRef<HTMLDivElement>(null);
+// ─── Hero Data ───────────────────────────────────────────────────────────────
+
+const heroSlides = [
+  {
+    video: video1,
+    label: "ZERO EMISSIONS · FULL POWER",
+    title: "The Future of",
+    titleAccent: "African Mobility",
+    subtitle:
+      "Transbiz is rewriting the rules of transport. From Nairobi's streets to the open savannah — our electric fleet delivers whisper-quiet power, zero emissions, and Kenyan pride in every kilometre.",
+    cta: { label: "Explore Our Fleet", path: "/vehicles" },
+    ctaSecondary: { label: "Our Story", path: "/about" },
+    stat: { value: "620", unit: "km", label: "Max Range" },
+  },
+  {
+    video: video2,
+    label: "SMART · SILENT · SUSTAINABLE",
+    title: "Drive Clean,",
+    titleAccent: "Drive Kenya",
+    subtitle:
+      "Every Transbiz vehicle is engineered for African roads — built for resilience, designed for elegance. Cut your fuel bill to zero. Breathe cleaner air. Lead the electric revolution.",
+    cta: { label: "Get In Touch", path: "/contact" },
+    ctaSecondary: { label: "Our Technology", path: "/technology" },
+    stat: { value: "0", unit: "g", label: "CO₂ Emissions" },
+  },
+];
+
+const heroStats = [
+  { target: 500, prefix: "", suffix: "+", label: "EVs Deployed" },
+  { target: 47,  prefix: "", suffix: "",  label: "Counties Covered" },
+  { target: 98,  prefix: "", suffix: "%", label: "Client Satisfaction" },
+  { target: 12,  prefix: "", suffix: "M+",label: "Clean Kilometres" },
+];
+
+// ─── Animated counting number — counts from 0 to target every CYCLE_MS ────────
+
+const COUNT_DURATION = 1400; // ms for one count-up
+const COUNT_CYCLE    = 5000; // ms between restarts
+
+function CountingNumber({
+  target,
+  prefix = "",
+  suffix = "",
+}: {
+  target: number;
+  prefix?: string;
+  suffix?: string;
+}) {
+  const [display, setDisplay] = useState(0);
+  const [flash, setFlash]     = useState(false);
+  const rafRef  = useRef<number | null>(null);
+
+  const startCount = useCallback(() => {
+    setDisplay(0);
+    setFlash(false);
+    const startTime = performance.now();
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+
+    const tick = (now: number) => {
+      const elapsed  = now - startTime;
+      const progress = Math.min(elapsed / COUNT_DURATION, 1);
+      const eased    = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setDisplay(Math.round(eased * target));
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        setFlash(true);
+        setTimeout(() => setFlash(false), 380);
+      }
+    };
+    rafRef.current = requestAnimationFrame(tick);
+  }, [target]);
 
   useEffect(() => {
-    const el = heroRef.current;
-    if (!el) return;
-
-    const tl = gsap.timeline();
-    tl.fromTo(
-      el.querySelector(".hero-image"),
-      { opacity: 0, scale: 0.95 },
-      { opacity: 1, scale: 1, duration: 1.5, ease: "power2.out" }
-    )
-      .fromTo(
-        el.querySelector(".hero-big-text"),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 1, ease: "power2.out" },
-        "-=1.0"
-      )
-      .fromTo(
-        el.querySelector(".hero-label"),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-        "-=0.6"
-      )
-      .fromTo(
-        el.querySelector(".hero-title"),
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
-        "-=0.4"
-      )
-      .fromTo(
-        el.querySelector(".hero-desc"),
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-        "-=0.5"
-      )
-      .fromTo(
-        el.querySelector(".hero-ctas"),
-        { opacity: 0, y: 15 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
-        "-=0.4"
-      );
-  }, []);
+    startCount();
+    const interval = setInterval(startCount, COUNT_CYCLE);
+    return () => {
+      clearInterval(interval);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [startCount]);
 
   return (
-    <section
-      ref={heroRef}
-      className="relative min-h-screen bg-[#050505] flex flex-col justify-end pb-16 md:pb-24 lg:pb-32 overflow-hidden"
+    <span
+      className={`font-heading font-black text-xl md:text-2xl tracking-tight tabular-nums transition-colors duration-300 ${
+        flash ? "text-brand" : "text-white"
+      }`}
     >
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src="/images/hero-car.jpg"
-          alt="Electric Vehicle"
-          className="w-full h-full object-cover hero-image"
+      {prefix}{display}{suffix}
+    </span>
+  );
+}
+
+const SLIDE_DURATION = 9000;
+
+// ─── Hero Section ─────────────────────────────────────────────────────────────
+
+function HeroSection() {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Auto-advance slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      goToSlide((activeSlide + 1) % heroSlides.length);
+    }, SLIDE_DURATION);
+    return () => clearInterval(timer);
+  }, [activeSlide]);
+
+  // Animate progress bar
+  useEffect(() => {
+    const bar = progressRef.current;
+    if (!bar) return;
+    bar.style.transition = "none";
+    bar.style.width = "0%";
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        bar.style.transition = `width ${SLIDE_DURATION}ms linear`;
+        bar.style.width = "100%";
+      });
+    });
+  }, [activeSlide]);
+
+  // Play current video
+  useEffect(() => {
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === activeSlide) {
+        v.currentTime = 0;
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+      }
+    });
+  }, [activeSlide]);
+
+  // Animate content in on slide change
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    gsap.fromTo(
+      el.querySelectorAll(".slide-anim"),
+      { opacity: 0, y: 32 },
+      { opacity: 1, y: 0, duration: 0.85, stagger: 0.1, ease: "power3.out" }
+    );
+  }, [activeSlide]);
+
+  const goToSlide = (idx: number) => {
+    if (isTransitioning || idx === activeSlide) return;
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setActiveSlide(idx);
+      setIsTransitioning(false);
+    }, 300);
+  };
+
+  const slide = heroSlides[activeSlide];
+
+  return (
+    <section className="relative h-screen min-h-[680px] bg-[#050505] overflow-hidden flex flex-col">
+
+      {/* ── Video Backgrounds ── */}
+      {heroSlides.map((s, i) => (
+        <video
+          key={i}
+          ref={(el) => { videoRefs.current[i] = el; }}
+          src={s.video}
+          muted
+          loop
+          playsInline
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+            i === activeSlide ? "opacity-100" : "opacity-0"
+          }`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[rgba(5,5,5,0.95)] via-[rgba(5,5,5,0.4)] to-transparent" />
+      ))}
+
+      {/* ── Cinematic gradient overlays ── */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[rgba(5,5,5,0.45)] to-[rgba(5,5,5,0.2)] z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[rgba(5,5,5,0.7)] via-[rgba(5,5,5,0.2)] to-transparent z-10" />
+
+      {/* ── Slide counter + dots — top right ── */}
+      <div className="absolute top-28 right-6 md:right-12 z-30 flex flex-col items-end gap-1">
+        <span className="text-[10px] font-bold tracking-[0.2em] text-white/35 uppercase">Scene</span>
+        <div className="flex items-baseline gap-1">
+          <span className="text-[42px] font-heading font-black text-white/90 leading-none tabular-nums">
+            {String(activeSlide + 1).padStart(2, "0")}
+          </span>
+          <span className="text-sm text-white/25 font-medium">
+            / {String(heroSlides.length).padStart(2, "0")}
+          </span>
+        </div>
+        <div className="flex gap-1.5 mt-1">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goToSlide(i)}
+              className={`rounded-full transition-all duration-500 ${
+                i === activeSlide
+                  ? "w-6 h-1.5 bg-brand shadow-[0_0_8px_rgba(34,197,94,0.6)]"
+                  : "w-1.5 h-1.5 bg-white/25 hover:bg-white/60"
+              }`}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
-      {/* Background Big Text */}
-      <div className="absolute inset-x-0 top-[22%] flex justify-center z-0 pointer-events-none px-4">
-        <h2 className="hero-big-text text-[clamp(32px,7vw,110px)] font-bold text-white/5 tracking-[0.25em] w-full text-center uppercase leading-none">
-          Drive to more COMFORT
-        </h2>
-      </div>
+      {/* ── Main Content ── */}
+      <div
+        ref={contentRef}
+        className="relative z-20 flex flex-col justify-end flex-1 content-max-width w-full pb-36 md:pb-44"
+      >
+        {/* Label pill */}
+        <div className="slide-anim mb-5">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/12 bg-white/5 backdrop-blur-sm text-[10px] md:text-xs font-bold tracking-[0.18em] text-white/70 uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand shadow-[0_0_6px_rgba(34,197,94,0.7)] animate-pulse" />
+            {slide.label}
+          </span>
+        </div>
 
-      {/* Content */}
-      <div className="relative z-10 content-max-width w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-24 items-end">
-          {/* Left Column */}
-          <div className="max-w-[720px]">
-            <span className="hero-label inline-block text-[10px] md:text-xs font-semibold uppercase tracking-[0.2em] text-gray-400 mb-6 opacity-0">
-              WELCOME TO TRANSBIZ
-            </span>
-            <h1 className="hero-title font-heading font-bold text-[clamp(34px,5vw,64px)] leading-[1.1] text-white opacity-0">
-              Clean Energy, Smart Drives, A Greener Tomorrow
-            </h1>
-          </div>
-          
-          {/* Right Column */}
-          <div className="max-w-[500px] lg:mb-2">
-            <p className="hero-desc text-sm md:text-base text-gray-300 leading-relaxed opacity-0">
-              Drive the change with Transbiz - where clean energy meets smart drive technology
-              for a smoother, greener tomorrow. Join us in powering the future, one ride at a time.
+        {/* Headline */}
+        <h1 className="slide-anim font-heading font-black text-[clamp(40px,6.5vw,88px)] leading-[0.97] text-white max-w-[820px] tracking-tight">
+          {slide.title}{" "}
+          <span
+            style={{
+              background: "linear-gradient(135deg, #22c55e 0%, #4ade80 55%, #86efac 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            {slide.titleAccent}
+          </span>
+        </h1>
+
+        {/* Body + CTAs + stat card */}
+        <div className="slide-anim mt-7 grid grid-cols-1 lg:grid-cols-[1fr_148px] gap-8 lg:gap-12 items-end max-w-[860px]">
+          <div>
+            <p className="text-sm md:text-[15px] text-white/60 leading-[1.85] max-w-[530px]">
+              {slide.subtitle}
             </p>
-            <div className="hero-ctas flex flex-wrap gap-4 mt-8 opacity-0">
+            <div className="flex flex-wrap gap-3 mt-7">
               <Link
-                to="/vehicles"
-                className="inline-flex items-center gap-2 px-8 py-3.5 bg-[#2a4566] text-white text-sm font-bold rounded-full hover:bg-[#1e324a] hover:-translate-y-0.5 transition-all duration-300 shadow-xl"
+                to={slide.cta.path}
+                className="inline-flex items-center gap-2 px-7 py-3.5 bg-brand text-[#050505] text-sm font-extrabold rounded-full hover:bg-[#4ade80] hover:-translate-y-0.5 transition-all duration-300 shadow-[0_0_28px_rgba(34,197,94,0.4)] hover:shadow-[0_0_40px_rgba(34,197,94,0.55)]"
               >
-                GET STARTED
+                {slide.cta.label}
                 <ArrowRight size={16} />
               </Link>
               <Link
-                to="/contact"
-                className="inline-flex items-center px-8 py-3.5 border border-white/30 text-white text-sm font-bold rounded-full hover:bg-white/10 hover:-translate-y-0.5 transition-all duration-300"
+                to={slide.ctaSecondary.path}
+                className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/18 bg-white/5 backdrop-blur-sm text-white text-sm font-semibold rounded-full hover:bg-white/12 hover:-translate-y-0.5 transition-all duration-300"
               >
-                CONTACT US
+                {slide.ctaSecondary.label}
               </Link>
+            </div>
+          </div>
+
+          {/* Big stat card */}
+          <div className="hidden lg:flex flex-col items-center justify-center w-[148px] h-[148px] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shrink-0 gap-1">
+            <span className="font-heading font-black text-[46px] leading-none text-white">
+              {slide.stat.value}
+              <span className="text-brand text-2xl">{slide.stat.unit}</span>
+            </span>
+            <span className="text-[9px] font-bold uppercase tracking-[0.18em] text-white/35 text-center">
+              {slide.stat.label}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Bottom Stats Bar ── */}
+      <div className="absolute bottom-0 left-0 right-0 z-30">
+        {/* Progress line */}
+        <div className="h-[2px] bg-white/8">
+          <div
+            ref={progressRef}
+            className="h-full bg-brand"
+            style={{ width: "0%" }}
+          />
+        </div>
+        {/* Stats */}
+        <div className="bg-[rgba(5,5,5,0.78)] backdrop-blur-md">
+          <div className="content-max-width w-full">
+            <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/8">
+              {heroStats.map((s, i) => (
+                <div key={i} className="flex flex-col items-center py-4 md:py-5 gap-0.5">
+                  <CountingNumber
+                    target={s.target}
+                    prefix={s.prefix}
+                    suffix={s.suffix}
+                  />
+                  <span className="text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                    {s.label}
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
+
+      {/* ── Scroll cue ── */}
+      <div className="absolute bottom-28 right-6 md:right-12 z-30 hidden md:flex flex-col items-center gap-2">
+        <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-white/28">
+          Scroll
+        </span>
+        <div className="w-px h-10 bg-gradient-to-b from-white/0 via-white/25 to-white/0" />
+        <ChevronDown size={13} className="text-white/28 animate-bounce" />
+      </div>
     </section>
   );
 }
+
+// ─── Why Choose Us ─────────────────────────────────────────────────────────────
 
 function WhyChooseUs() {
   const featuresData = [

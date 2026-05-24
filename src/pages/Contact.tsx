@@ -92,7 +92,8 @@ function ContactFormSection() {
     {
       icon: MapPin,
       title: "Visit Us",
-      detail: "Kiambere Road, Manga House, Nairobi",
+      detail: "Manga House, Right Wing",
+      sub: "9 Kiambere Rd, Nairobi, Kenya",
     },
     {
       icon: Clock,
@@ -225,13 +226,21 @@ function ContactFormSection() {
                 })}
               </div>
 
-              {/* Map */}
-              <div className="mt-6 rounded-2xl overflow-hidden aspect-video bg-[#E8E8E8] border border-border-light flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin size={32} className="text-brand mx-auto mb-2" />
-                  <p className="text-sm font-medium text-txt-dark">Ngong Rd, Nairobi</p>
-                  <p className="text-xs text-txt-dark-muted">Next to Rubis</p>
+              {/* Map — Manga House, 9 Kiambere Rd, Nairobi */}
+              <div className="mt-6 rounded-2xl overflow-hidden border border-border-light shadow-sm">
+                <div className="px-0 py-0">
+                  <h4 className="font-heading font-semibold text-sm text-txt-dark px-4 pt-4 pb-2">Our Location</h4>
                 </div>
+                <iframe
+                  title="Transbiz — Manga House, Nairobi"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.820291742!2d36.82193!3d-1.29773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f10d74d1a5555%3A0x5e29e7db7b8b0ded!2sManga%20House!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske"
+                  width="100%"
+                  height="360"
+                  style={{ border: 0, display: "block" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </div>
           </ScrollReveal>
