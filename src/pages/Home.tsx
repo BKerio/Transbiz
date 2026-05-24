@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
-import { Zap, Leaf, Battery, VolumeX, Wrench, Car, Bus, ArrowRight, ChevronDown } from "lucide-react";
+import { Zap, Leaf, Battery, VolumeX, Wrench, Car, Bus, ArrowRight, ChevronDown, Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import VehicleCard from "@/components/shared/VehicleCard";
 import FilterTabs from "@/components/shared/FilterTabs";
 import Marquee from "@/components/shared/Marquee";
 import FAQAccordion from "@/components/shared/FAQAccordion";
+import SavingsCalculator from "@/components/shared/SavingsCalculator";
 import { vehicles, categories } from "@/data/vehicles";
 import { testimonials } from "@/data/testimonials";
 import { features, faqItems } from "@/data/features";
@@ -593,27 +594,50 @@ function WhyGoElectric() {
           label="WHY GO ELECTRIC"
           title="Elevate Your Eco-Journey"
         />
-        <ScrollReveal stagger={0.08}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
-            {features.map((f, i) => {
-              const Icon = featureIcons[i];
-              return (
-                <div
-                  key={i}
-                  className="p-7 rounded-xl border border-border-dark bg-[rgba(255,255,255,0.03)] hover:border-white/15 transition-all duration-300"
-                >
-                  <Icon size={32} className="text-brand" strokeWidth={1.5} />
-                  <h3 className="font-heading font-semibold text-lg text-txt-primary mt-4">
-                    {f.title}
-                  </h3>
-                  <p className="text-sm text-txt-secondary mt-2 leading-relaxed">
-                    {f.description}
-                  </p>
-                </div>
-              );
-            })}
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mt-12">
+          {/* Interactive Calculator Column */}
+          <div className="lg:col-span-7 w-full">
+            <ScrollReveal>
+              <SavingsCalculator />
+            </ScrollReveal>
           </div>
-        </ScrollReveal>
+
+          {/* Premium Features Column */}
+          <div className="lg:col-span-5 w-full">
+            <ScrollReveal stagger={0.06}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {features.map((f, i) => {
+                  const Icon = featureIcons[i];
+                  const isLast = i === features.length - 1;
+                  return (
+                    <div
+                      key={i}
+                      className={`group p-5 rounded-2xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-brand/30 transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[140px] ${
+                        isLast ? "sm:col-span-2" : ""
+                      }`}
+                    >
+                      {/* Glow effect on hover */}
+                      <div className="absolute -inset-px bg-gradient-to-r from-brand/0 via-brand/10 to-brand/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                      
+                      <div className="relative z-10">
+                        <div className="w-10 h-10 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center transition-all duration-300 group-hover:border-brand/20 group-hover:bg-brand/5">
+                          <Icon size={20} className="text-brand transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110" strokeWidth={1.5} />
+                        </div>
+                        <h3 className="font-heading font-semibold text-sm text-txt-primary mt-4 group-hover:text-brand transition-colors duration-300">
+                          {f.title}
+                        </h3>
+                        <p className="text-xs text-txt-secondary mt-1.5 leading-relaxed">
+                          {f.description}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -677,42 +701,196 @@ function CustomerStories() {
 }
 
 function TestimonialsSection() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const resetTimeout = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+  };
+
+  useEffect(() => {
+    resetTimeout();
+    timeoutRef.current = setTimeout(
+      () =>
+        setActiveIndex((prevIndex) =>
+          prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1
+        ),
+      7000
+    );
+
+    return () => {
+      resetTimeout();
+    };
+  }, [activeIndex]);
+
+  const handlePrev = () => {
+    resetTimeout();
+    setActiveIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    resetTimeout();
+    setActiveIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleSelectAvatar = (idx: number) => {
+    resetTimeout();
+    setActiveIndex(idx);
+  };
+
   return (
-    <section className="bg-bg-primary section-padding">
-      <div className="content-max-width">
-        <SectionHeader
-          label="CUSTOMER STORIES"
-          title="What Our Drivers Say About Us"
-        />
-        <ScrollReveal stagger={0.1}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-            {testimonials.map((t) => (
-              <div
-                key={t.id}
-                className="bg-bg-card border border-border-dark rounded-2xl p-8 hover:border-white/15 hover:-translate-y-1 transition-all duration-300"
-              >
-                <span className="text-5xl text-brand/30 font-heading leading-none">
-                  &ldquo;
-                </span>
-                <p className="text-sm text-txt-secondary leading-[1.7] -mt-2">
-                  {t.quote}
-                </p>
-                <div className="border-t border-border-dark mt-6 pt-6 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-brand flex items-center justify-center text-[#050505] font-bold text-sm">
-                    {t.initial}
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-heading font-semibold text-white text-sm">
-                      {t.name}
-                    </h4>
-                    <p className="text-xs text-brand">{t.role}</p>
-                  </div>
-                  <span className="text-xs text-txt-muted">{t.date}</span>
+    <section className="bg-bg-primary section-padding relative overflow-hidden border-t border-white/[0.03]">
+      {/* Background gradients */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-brand/5 rounded-full blur-3xl opacity-30 pointer-events-none" />
+
+      <div className="content-max-width relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* Left panel: Info & Interactive Avatar Hub */}
+          <div className="lg:col-span-5 flex flex-col justify-center">
+            <div>
+              <span className="inline-block text-xs font-semibold uppercase tracking-[0.12em] text-brand mb-4">
+                CUSTOMER STORIES
+              </span>
+              <h2 className="font-heading font-bold text-[clamp(28px,3vw,40px)] leading-[1.15] tracking-[-0.02em] text-txt-primary mb-6">
+                What Our Drivers Say About Us
+              </h2>
+            </div>
+            <p className="text-txt-secondary text-sm md:text-base leading-relaxed mb-8 max-w-md">
+              Discover how our electric fleet is transforming daily commutes and operations across Kenya, providing silent comfort, zero emissions, and exceptional fuel savings.
+            </p>
+
+            {/* Interactive avatar selectors using initials inside circles */}
+            <div className="flex flex-wrap items-center gap-3.5">
+              {testimonials.map((t, idx) => {
+                const isActive = activeIndex === idx;
+                return (
+                  <button
+                    key={t.id}
+                    onClick={() => handleSelectAvatar(idx)}
+                    className="group relative focus:outline-none"
+                    aria-label={`Select testimonial by ${t.name}`}
+                  >
+                    {/* Glowing active outer ring */}
+                    <div
+                      className={`absolute -inset-1 rounded-full transition-all duration-300 ${
+                        isActive
+                          ? "bg-brand opacity-100 scale-105 shadow-[0_0_12px_rgba(34,197,94,0.4)]"
+                          : "bg-transparent opacity-0 scale-90 group-hover:bg-brand/20 group-hover:opacity-60"
+                      }`}
+                    />
+                    {/* Avatar circle */}
+                    <div
+                      className={`relative w-12 h-12 rounded-full flex items-center justify-center font-heading font-black text-sm transition-all duration-300 border-2 ${
+                        isActive
+                          ? "bg-[#0A0A0A] border-white text-brand scale-105"
+                          : "bg-white/[0.02] border-white/10 text-txt-secondary scale-95 opacity-55 group-hover:opacity-90 group-hover:border-white/20 group-hover:text-white"
+                      }`}
+                    >
+                      {t.initial}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+            
+            <div className="mt-4 text-[10px] text-txt-muted font-mono tracking-wider">
+              CLICK AVATARS TO VIEW FEEDBACK
+            </div>
+          </div>
+
+          {/* Right panel: Flat, High-End Compact Card Showcase */}
+          <div className="lg:col-span-7 flex justify-center lg:justify-start w-full">
+            {/* Elegant flat border container - slightly smaller cards */}
+            <div className="relative bg-[#0d0d0f]/90 border border-white/10 rounded-2xl p-6 md:p-10 shadow-2xl overflow-hidden w-full max-w-[540px]">
+              
+              {/* Decorative quotation mark */}
+              <Quote size={100} className="absolute -top-6 -right-4 text-brand/[0.03] fill-brand/[0.01] pointer-events-none" />
+
+              {/* Slider Viewport */}
+              <div className="overflow-hidden">
+                <div
+                  className="flex transition-transform duration-700 ease-out"
+                  style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+                >
+                  {testimonials.map((t) => (
+                    <div key={t.id} className="w-full shrink-0">
+                      
+                      {/* Rating Stars */}
+                      <div className="flex gap-1 mb-6">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} size={15} className="fill-brand text-brand" />
+                        ))}
+                      </div>
+
+                      {/* Quote */}
+                      <p className="text-base md:text-lg font-light italic leading-relaxed mb-8 text-white/90">
+                        "{t.quote}"
+                      </p>
+
+                      {/* Author Info */}
+                      <div className="flex justify-between items-center border-t border-white/5 pt-6">
+                        <div>
+                          <h4 className="text-white font-heading font-semibold text-sm">
+                            {t.name}
+                          </h4>
+                          <p className="text-brand text-xs mt-0.5 font-medium">
+                            {t.role}
+                          </p>
+                        </div>
+                        <span className="text-[10px] text-txt-muted font-mono">
+                          {t.date}
+                        </span>
+                      </div>
+
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
+
+              {/* Navigation controls & slide numbers */}
+              <div className="flex items-center justify-between mt-8 border-t border-white/5 pt-6">
+                
+                {/* Slide indicator dots */}
+                <div className="flex gap-1.5">
+                  {testimonials.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handleSelectAvatar(idx)}
+                      className={`h-1 rounded-full transition-all duration-300 ${
+                        activeIndex === idx ? "bg-brand w-6" : "bg-white/10 hover:bg-white/20 w-1.5"
+                      }`}
+                      aria-label={`Show testimonial slide ${idx + 1}`}
+                    />
+                  ))}
+                </div>
+
+                {/* Left & Right custom buttons */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handlePrev}
+                    className="w-9 h-9 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white hover:bg-brand hover:text-[#050505] hover:border-brand transition-all duration-300 shadow-sm"
+                    aria-label="Previous slide"
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+                  <button
+                    onClick={handleNext}
+                    className="w-9 h-9 rounded-full border border-white/10 bg-white/[0.02] flex items-center justify-center text-white hover:bg-brand hover:text-[#050505] hover:border-brand transition-all duration-300 shadow-sm"
+                    aria-label="Next slide"
+                  >
+                    <ChevronRight size={16} />
+                  </button>
+                </div>
+
+              </div>
+
+            </div>
           </div>
-        </ScrollReveal>
+
+        </div>
       </div>
     </section>
   );
