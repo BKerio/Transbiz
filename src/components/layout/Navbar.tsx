@@ -15,13 +15,32 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
+    let lastScrollY = window.scrollY;
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 10);
+
+      // Hide/Show navbar based on scroll direction
+      if (currentScrollY < 50) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY + 15) {
+        // Scrolling down (page goes up) - hide smoothly
+        setIsVisible(false);
+      } else if (currentScrollY < lastScrollY - 10) {
+        // Scrolling up (page goes down) - show immediately
+        setIsVisible(true);
+      }
+
+      lastScrollY = currentScrollY;
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -54,11 +73,14 @@ export default function Navbar() {
     <>
       {/* ── White Navbar ── */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 h-[80px] flex items-center bg-white transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 flex items-center bg-white transition-all ${
+          isVisible ? "translate-y-0 opacity-100 duration-150 ease-out" : "-translate-y-full opacity-0 duration-300 ease-in"
+        } ${
           scrolled
             ? "shadow-[0_2px_24px_rgba(0,0,0,0.08)] border-b border-gray-100"
             : "border-b border-gray-200"
         }`}
+        style={{ height: scrolled ? "72px" : "96px" }}
       >
         <div className="content-max-width w-full flex items-center justify-between">
 
@@ -67,7 +89,11 @@ export default function Navbar() {
             <img
               src={logo}
               alt="Transbiz Logo"
-              className="h-14 w-auto object-contain"
+              className="object-contain transition-all duration-300"
+              style={{
+                height: scrolled ? "64px" : "78px",
+                width: scrolled ? "86px" : "115px",
+              }}
             />
           </Link>
 

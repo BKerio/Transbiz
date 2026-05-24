@@ -4,9 +4,10 @@ import type { Vehicle } from "@/data/vehicles";
 
 interface VehicleCardProps {
   vehicle: Vehicle;
+  onBook?: (v: Vehicle) => void;
 }
 
-export default function VehicleCard({ vehicle }: VehicleCardProps) {
+export default function VehicleCard({ vehicle, onBook }: VehicleCardProps) {
   return (
     <div className="group bg-bg-card border border-border-dark rounded-xl overflow-hidden hover:border-white/15 hover:-translate-y-1 transition-all duration-300">
       {/* Image */}
@@ -51,12 +52,21 @@ export default function VehicleCard({ vehicle }: VehicleCardProps) {
         </p>
 
         {/* CTA */}
-        <Link
-          to="/contact"
-          className="inline-block mt-4 text-sm font-medium text-brand hover:underline underline-offset-4 transition-all"
-        >
-          Book a Test Drive
-        </Link>
+        {onBook ? (
+          <button
+            onClick={() => onBook(vehicle)}
+            className="inline-block mt-4 text-sm font-medium text-brand hover:underline underline-offset-4 transition-all text-left focus:outline-none"
+          >
+            Book a Test Drive
+          </button>
+        ) : (
+          <Link
+            to={`/vehicles?book=${vehicle.id}`}
+            className="inline-block mt-4 text-sm font-medium text-brand hover:underline underline-offset-4 transition-all"
+          >
+            Book a Test Drive
+          </Link>
+        )}
       </div>
     </div>
   );

@@ -1,9 +1,11 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Search } from "lucide-react";
-import { vehicles, categories } from "@/data/vehicles";
+import { useSearchParams } from "react-router-dom";
+import { vehicles, categories, type Vehicle } from "@/data/vehicles";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import VehicleCard from "@/components/shared/VehicleCard";
 import FilterTabs from "@/components/shared/FilterTabs";
+import BookingDialog from "@/components/shared/BookingDialog";
 
 function HeroSection() {
   return (
@@ -43,7 +45,11 @@ function HeroSection() {
   );
 }
 
-function VehicleGridSection() {
+interface VehicleGridSectionProps {
+  onBook: (v: Vehicle) => void;
+}
+
+function VehicleGridSection({ onBook }: VehicleGridSectionProps) {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filtered = useMemo(() => {
@@ -62,7 +68,7 @@ function VehicleGridSection() {
         <ScrollReveal stagger={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((vehicle) => (
-              <VehicleCard key={vehicle.id} vehicle={vehicle} />
+              <VehicleCard key={vehicle.id} vehicle={vehicle} onBook={onBook} />
             ))}
           </div>
         </ScrollReveal>
@@ -72,10 +78,29 @@ function VehicleGridSection() {
 }
 
 export default function Vehicles() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
+
+  useEffect(() => {
+    const bookId = searchParams.get("book");
+    if (bookId) {
+      const match = vehicles.find((v) => v.id === bookId);
+      if (match) {
+        setSelectedVehicle(match);
+      }
+    }
+  }, [searchParams]);
+
+  const handleClose = () => {
+    setSelectedVehicle(null);
+    setSearchParams({}, { replace: true });
+  };
+
   return (
     <main>
       <HeroSection />
-      <VehicleGridSection />
+      <VehicleGridSection onBook={setSelectedVehicle} />
+      <BookingDialog vehicle={selectedVehicle} onClose={handleClose} />
     </main>
   );
 }
