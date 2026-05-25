@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Car, Bus, Zap, TrendingDown, Leaf, DollarSign } from "lucide-react";
+import { Car, Bus, Zap, TrendingDown, Leaf } from "lucide-react";
 
 interface VehicleConfig {
   name: string;
