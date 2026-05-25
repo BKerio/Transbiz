@@ -525,7 +525,7 @@ function WhyChooseUs() {
 }
 
 function VehicleShowcase() {
-  const featuredVehicles = useMemo(() => vehicles.slice(0, 3), []);
+  const featuredVehicles = useMemo(() => vehicles.slice(0, 9), []);
 
   return (
     <section className="bg-bg-primary section-padding">

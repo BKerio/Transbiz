@@ -1,5 +1,15 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Youtube } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Youtube,
+  ArrowRight
+} from "lucide-react";
 
 const exploreLinks = [
   { label: "Home", path: "/" },
@@ -23,7 +33,7 @@ const socialLinks = [
   { icon: Youtube, href: "/", label: "YouTube" },
 ];
 
-export default function Footer() {
+function Footer() {
   return (
     <footer className="bg-bg-primary border-t border-border-dark">
       <div className="content-max-width pt-20 pb-10">
@@ -39,9 +49,11 @@ export default function Footer() {
                 Kenya Limited
               </span>
             </Link>
+
             <p className="mt-4 text-sm text-txt-secondary leading-relaxed">
               Driving Africa's electric future with sustainable, innovative mobility solutions.
             </p>
+
             <div className="flex items-center gap-4 mt-6">
               {socialLinks.map((social) => (
                 <a
@@ -66,9 +78,13 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     to={link.path}
-                    className="text-sm text-txt-secondary hover:text-txt-primary transition-colors"
+                    className="group flex items-center gap-2 text-sm text-txt-secondary hover:text-txt-primary transition-colors"
                   >
                     {link.label}
+                    <ArrowRight
+                      size={14}
+                      className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                    />
                   </Link>
                 </li>
               ))}
@@ -85,9 +101,13 @@ export default function Footer() {
                 <li key={link.label}>
                   <Link
                     to={link.path}
-                    className="text-sm text-txt-secondary hover:text-txt-primary transition-colors"
+                    className="group flex items-center gap-2 text-sm text-txt-secondary hover:text-txt-primary transition-colors"
                   >
                     {link.label}
+                    <ArrowRight
+                      size={14}
+                      className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+                    />
                   </Link>
                 </li>
               ))}
@@ -108,7 +128,6 @@ export default function Footer() {
                 <Phone size={16} className="text-brand mt-0.5 shrink-0" />
                 <span>+254 717 662 503</span>
               </li>
-              
               <li className="flex items-start gap-2.5 text-sm text-txt-secondary">
                 <MapPin size={16} className="text-brand mt-0.5 shrink-0" />
                 <span>Purple Tower, Shimo la Tewa Road</span>
@@ -128,6 +147,7 @@ export default function Footer() {
                 Get exclusive EV tips, special offers, and the latest news delivered to your inbox.
               </p>
             </div>
+
             <div className="flex gap-3">
               <input
                 type="email"
@@ -146,12 +166,28 @@ export default function Footer() {
           <p className="text-xs text-txt-muted">
             &copy; 2026 Transbiz Africa. All rights reserved.
           </p>
+
           <div className="flex items-center gap-6">
-            <Link to="/privacy" className="text-xs text-txt-muted hover:text-txt-primary transition-colors">
+            <Link
+              to="/privacy"
+              className="group flex items-center gap-1 text-xs text-txt-muted hover:text-txt-primary transition-colors"
+            >
               Privacy Policy
+              <ArrowRight
+                size={12}
+                className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+              />
             </Link>
-            <Link to="/terms" className="text-xs text-txt-muted hover:text-txt-primary transition-colors">
+
+            <Link
+              to="/terms"
+              className="group flex items-center gap-1 text-xs text-txt-muted hover:text-txt-primary transition-colors"
+            >
               Terms of Service
+              <ArrowRight
+                size={12}
+                className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200"
+              />
             </Link>
           </div>
         </div>
@@ -159,3 +195,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default Footer;
