@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/logo (2).png";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { label: "HOME", path: "/" },
@@ -77,22 +77,23 @@ export default function Navbar() {
           isVisible ? "translate-y-0 opacity-100 duration-150 ease-out" : "-translate-y-full opacity-0 duration-300 ease-in"
         } ${
           scrolled
-            ? "shadow-[0_2px_24px_rgba(0,0,0,0.08)] border-b border-gray-100"
+             ? "shadow-[0_2px_24px_rgba(0,0,0,0.08)] border-b border-gray-100"
             : "border-b border-gray-200"
         }`}
-        style={{ height: scrolled ? "72px" : "96px" }}
+        style={{ height: scrolled ? "88px" : "120px" }}
       >
         <div className="content-max-width w-full flex items-center justify-between">
 
-          {/* Logo — white bg on white bar = perfect rendering */}
+          {/* Logo */}
           <Link to="/" className="flex items-center shrink-0">
             <img
               src={logo}
+              draggable={false}
               alt="Transbiz Logo"
               className="object-contain transition-all duration-300"
               style={{
-                height: scrolled ? "64px" : "78px",
-                width: scrolled ? "86px" : "115px",
+                height: scrolled ? "76px" : "106px",
+                width: "auto",
               }}
             />
           </Link>
@@ -125,7 +126,7 @@ export default function Navbar() {
 
             {/* WhatsApp icon */}
             <a
-              href="https://wa.me/+254747468481"
+              href="https://wa.me/254717662503?text=Hello%20Transbiz%2C%20I%20would%20like%20to%20inquire%20about%20your%20electric%20vehicles."
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:flex w-10 h-10 rounded-full border border-gray-200 items-center justify-center text-gray-500 hover:border-brand hover:text-brand hover:bg-brand/5 transition-all duration-300"
@@ -149,7 +150,7 @@ export default function Navbar() {
 
             {/* Phone icon */}
             <a
-              href="tel:+254113778888"
+              href="tel:+254717662503"
               className="hidden sm:flex w-10 h-10 rounded-full border border-gray-200 items-center justify-center text-gray-500 hover:border-brand hover:text-brand hover:bg-brand/5 transition-all duration-300"
               aria-label="Call"
             >

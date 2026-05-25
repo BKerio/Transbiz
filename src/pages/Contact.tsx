@@ -30,7 +30,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative min-h-[40vh] bg-bg-primary flex items-center justify-center pt-[72px]"
+      className="relative min-h-[40vh] bg-bg-primary flex items-center justify-center pt-[88px]"
     >
       <div className="absolute inset-0">
         <img
@@ -86,14 +86,14 @@ function ContactFormSection() {
     {
       icon: Phone,
       title: "Call Us",
-      detail: "+254 747 468 481",
+      detail: "+254 717 662 503",
       sub: "Mon-Fri, 8am to 6pm EAT",
     },
     {
       icon: MapPin,
       title: "Visit Us",
-      detail: "Manga House, Right Wing",
-      sub: "9 Kiambere Rd, Nairobi, Kenya",
+      detail: "Purple Tower, Shimo la Tewa Road",
+      sub: "Nairobi, Kenya",
     },
     {
       icon: Clock,

@@ -9,7 +9,7 @@ import BookingDialog from "@/components/shared/BookingDialog";
 
 function HeroSection() {
   return (
-    <section className="relative min-h-[45vh] bg-bg-primary flex items-center pt-[72px]">
+    <section className="relative min-h-[45vh] bg-bg-primary flex items-center pt-[88px]">
       <div className="absolute inset-0">
         <img
           src="https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&w=1200&q=80"

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Car, Truck, Bus, CreditCard, Wrench, Eye } from "lucide-react";
+import { Car, Truck, Bus, CreditCard, Wrench, Eye, Zap } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 
@@ -30,7 +30,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative min-h-[50vh] bg-bg-primary flex items-center justify-center overflow-hidden pt-[72px]"
+      className="relative min-h-[50vh] bg-bg-primary flex items-center justify-center overflow-hidden pt-[88px]"
     >
       <div className="absolute inset-0">
         <img
@@ -85,6 +85,7 @@ function SolutionsSection() {
     { icon: Bus, title: "Electric City Buses", desc: "Mass public transport systems" },
     { icon: CreditCard, title: "Vehicle Financing", desc: "Asset management with leading financial institutions" },
     { icon: Wrench, title: "After-Sales Support", desc: "Service, maintenance, battery management & fleet monitoring" },
+    { icon: Zap, title: "Charging Infrastructure", desc: "Home, workplace, and public fast-charging networks" },
   ];
 
   return (

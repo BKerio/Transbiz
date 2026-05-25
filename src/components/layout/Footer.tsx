@@ -106,15 +106,12 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2.5 text-sm text-txt-secondary">
                 <Phone size={16} className="text-brand mt-0.5 shrink-0" />
-                <span>+254 113 778 888</span>
+                <span>+254 717 662 503</span>
               </li>
-              <li className="flex items-start gap-2.5 text-sm text-txt-secondary">
-                <Phone size={16} className="text-brand mt-0.5 shrink-0" />
-                <span>+254 768 770 000</span>
-              </li>
+              
               <li className="flex items-start gap-2.5 text-sm text-txt-secondary">
                 <MapPin size={16} className="text-brand mt-0.5 shrink-0" />
-                <span>Kiambere Road, Manga House, Nairobi</span>
+                <span>Purple Tower, Shimo la Tewa Road</span>
               </li>
             </ul>
           </div>

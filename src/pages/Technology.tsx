@@ -1,4 +1,5 @@
 import { Clock } from "lucide-react";
+import { Link } from "react-router-dom";
 import { articles } from "@/data/features";
 import SectionHeader from "@/components/shared/SectionHeader";
 import ScrollReveal from "@/components/shared/ScrollReveal";
@@ -31,7 +32,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative min-h-[45vh] bg-bg-primary flex items-center justify-center pt-[72px]"
+      className="relative min-h-[45vh] bg-bg-primary flex items-center justify-center pt-[88px]"
     >
       <div className="absolute inset-0">
         <img
@@ -70,9 +71,10 @@ function ArticlesGridSection() {
         <ScrollReveal stagger={0.1}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
             {articles.map((article) => (
-              <div
+              <Link
                 key={article.id}
-                className="bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 group"
+                to={`/technology/${article.id}`}
+                className="block bg-white rounded-2xl overflow-hidden border border-border-light hover:shadow-[0_8px_32px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-300 group cursor-pointer"
               >
                 {/* Image */}
                 <div className="relative aspect-video overflow-hidden">
@@ -96,14 +98,14 @@ function ArticlesGridSection() {
                       {article.readTime}
                     </span>
                   </div>
-                  <h3 className="font-heading font-semibold text-base text-txt-dark mt-3 line-clamp-2 leading-snug">
+                  <h3 className="font-heading font-semibold text-base text-txt-dark mt-3 line-clamp-2 leading-snug group-hover:text-brand transition-colors">
                     {article.title}
                   </h3>
                   <p className="text-sm text-txt-dark-secondary mt-2 line-clamp-3 leading-relaxed">
                     {article.excerpt}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </ScrollReveal>

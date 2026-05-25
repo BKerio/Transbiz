@@ -240,7 +240,7 @@ function HeroSection() {
       </div>
 
       {/* ── Slide counter — desktop only ── */}
-      <div className="absolute top-28 right-12 z-30 hidden md:flex flex-col items-end gap-1">
+      <div className="absolute top-36 right-12 z-30 hidden md:flex flex-col items-end gap-1">
         <span className="text-[10px] font-bold tracking-[0.2em] text-white/35 uppercase">Scene</span>
         <div className="flex items-baseline gap-1">
           <span className="text-[42px] font-heading font-black text-white/90 leading-none tabular-nums">
@@ -269,7 +269,7 @@ function HeroSection() {
       {/* ── Main Content ── */}
       <div
         ref={contentRef}
-        className="relative z-20 flex flex-col justify-end flex-1 w-full pb-[155px] md:pb-44 px-5 sm:px-8 md:content-max-width md:px-[clamp(24px,5vw,80px)]"
+        className="relative z-20 flex flex-col justify-end flex-1 w-full pt-[130px] pb-[155px] md:pb-44 px-5 sm:px-8 md:content-max-width md:px-[clamp(24px,5vw,80px)]"
       >
         {/* Mobile: label pill */}
         <div className="slide-anim mb-4 md:hidden">
