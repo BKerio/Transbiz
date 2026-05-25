@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo (2).png";
 
 const navLinks = [
   { label: "HOME", path: "/" },
   { label: "ABOUT US", path: "/about" },
-  { label: "OUR CARS", path: "/vehicles" },
+  { label: "OUR VEHICLES", path: "/vehicles" },
   { label: "NEWS & ARTICLES", path: "/technology" },
   { label: "CONTACT US", path: "/contact" },
 ];

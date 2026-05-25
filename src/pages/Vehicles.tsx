@@ -12,7 +12,7 @@ function HeroSection() {
     <section className="relative min-h-[45vh] bg-bg-primary flex items-center pt-[72px]">
       <div className="absolute inset-0">
         <img
-          src="/images/hero-car.jpg"
+          src="https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&w=1200&q=80"
           alt="Electric Fleet"
           className="w-full h-full object-cover opacity-40"
         />

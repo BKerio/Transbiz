@@ -7,11 +7,10 @@ import { Zap, Leaf, Battery, VolumeX, Wrench, Car, Bus, ArrowRight, ChevronDown,
 import SectionHeader from "@/components/shared/SectionHeader";
 import ScrollReveal from "@/components/shared/ScrollReveal";
 import VehicleCard from "@/components/shared/VehicleCard";
-import FilterTabs from "@/components/shared/FilterTabs";
 import Marquee from "@/components/shared/Marquee";
 import FAQAccordion from "@/components/shared/FAQAccordion";
 import SavingsCalculator from "@/components/shared/SavingsCalculator";
-import { vehicles, categories } from "@/data/vehicles";
+import { vehicles } from "@/data/vehicles";
 import { testimonials } from "@/data/testimonials";
 import { features, faqItems } from "@/data/features";
 import video1 from "@/assets/video-1.mp4";
@@ -462,12 +461,7 @@ function WhyChooseUs() {
 }
 
 function VehicleShowcase() {
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const filtered = useMemo(() => {
-    if (activeCategory === "All") return vehicles;
-    return vehicles.filter((v) => v.category === activeCategory);
-  }, [activeCategory]);
+  const featuredVehicles = useMemo(() => vehicles.slice(0, 3), []);
 
   return (
     <section className="bg-bg-primary section-padding">
@@ -477,18 +471,24 @@ function VehicleShowcase() {
           title="Choose Your Perfect EV"
           subtitle="From city commuters to luxury SUVs, we have the perfect electric vehicle for every occasion and budget."
         />
-        <FilterTabs
-          categories={categories}
-          active={activeCategory}
-          onChange={setActiveCategory}
-        />
+        
         <ScrollReveal stagger={0.1}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((vehicle) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+            {featuredVehicles.map((vehicle) => (
               <VehicleCard key={vehicle.id} vehicle={vehicle} />
             ))}
           </div>
         </ScrollReveal>
+
+        <div className="text-center mt-12">
+          <Link
+            to="/vehicles"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand text-[#050505] text-sm font-extrabold rounded-full hover:bg-brand-hover transition-colors shadow-lg hover:shadow-brand-soft"
+          >
+            VIEW ALL FLEET
+            <ArrowRight size={16} />
+          </Link>
+        </div>
       </div>
     </section>
   );
@@ -530,14 +530,14 @@ function FeaturedFleet() {
         <SectionHeader label="OUR FEATURED FLEET" title="Experience The Future" light />
 
         <ScrollReveal stagger={0.1}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr] gap-4 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr] lg:grid-rows-2 gap-4 mt-12 lg:h-[480px]">
             {/* Large card */}
-            <div className="md:row-span-2 relative rounded-2xl overflow-hidden group">
+            <div className="md:row-span-2 relative rounded-2xl overflow-hidden lg:h-full group">
               <img
                 src={bentoItems[0].image}
                 alt={bentoItems[0].title}
                 loading="lazy"
-                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-400 min-h-[300px]"
+                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-400 min-h-[300px] lg:min-h-0"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -552,7 +552,7 @@ function FeaturedFleet() {
             {bentoItems.slice(1).map((item, i) => (
               <div
                 key={i}
-                className="relative rounded-2xl overflow-hidden aspect-[16/10] group"
+                className="relative rounded-2xl overflow-hidden aspect-[16/10] lg:aspect-auto lg:h-full group"
               >
                 <img
                   src={item.image}
@@ -613,15 +613,15 @@ function WhyGoElectric() {
                   return (
                     <div
                       key={i}
-                      className={`group p-5 rounded-2xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] hover:border-brand/30 transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[140px] ${
+                      className={`group p-5 rounded-2xl border border-white/10 bg-bg-card hover:bg-[#07160D] hover:border-brand/50 transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[140px] ${
                         isLast ? "sm:col-span-2" : ""
                       }`}
                     >
                       {/* Glow effect on hover */}
-                      <div className="absolute -inset-px bg-gradient-to-r from-brand/0 via-brand/10 to-brand/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                      <div className="absolute -inset-px bg-gradient-to-r from-brand/0 via-brand/15 to-brand/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                       
                       <div className="relative z-10">
-                        <div className="w-10 h-10 rounded-xl bg-white/[0.02] border border-white/5 flex items-center justify-center transition-all duration-300 group-hover:border-brand/20 group-hover:bg-brand/5">
+                        <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center transition-all duration-300 group-hover:border-brand/30 group-hover:bg-brand/10">
                           <Icon size={20} className="text-brand transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110" strokeWidth={1.5} />
                         </div>
                         <h3 className="font-heading font-semibold text-sm text-txt-primary mt-4 group-hover:text-brand transition-colors duration-300">
@@ -649,6 +649,7 @@ function CustomerStories() {
     { title: "Pioneer 5 Road Trip", image: "/images/story-road-trip.jpg" },
     { title: "First EV Experience", image: "/images/story-first-ev.jpg" },
     { title: "SpotMojo Challenge", image: "/images/story-challenge.jpg" },
+    { title: "Nairobi EV Commute", image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80" },
   ];
 
   return (
