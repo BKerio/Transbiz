@@ -25,22 +25,20 @@ const featureIcons = [Zap, Leaf, Battery, VolumeX, Wrench, Car, Bus];
 const heroSlides = [
   {
     video: video1,
-    label: "ZERO EMISSIONS · FULL POWER",
-    title: "The Future of",
-    titleAccent: "African Mobility",
+    title: "Zero Emissions,",
+    titleAccent: "100% Kenyan Pride",
     subtitle:
-      "Transbiz is rewriting the rules of transport. From Nairobi's streets to the open savannah — our electric fleet delivers whisper-quiet power, zero emissions, and Kenyan pride in every kilometre.",
+      "Transbiz is rewriting the rules of transport. From Nairobi's streets to the open savannah - our electric fleet delivers whisper-quiet power, zero emissions, and Kenyan pride in every kilometre.",
     cta: { label: "Explore Our Fleet", path: "/vehicles" },
     ctaSecondary: { label: "Our Story", path: "/about" },
     stat: { value: "620", unit: "km", label: "Max Range" },
   },
   {
     video: video2,
-    label: "SMART · SILENT · SUSTAINABLE",
     title: "Drive Clean,",
     titleAccent: "Drive Kenya",
     subtitle:
-      "Every Transbiz vehicle is engineered for African roads — built for resilience, designed for elegance. Cut your fuel bill to zero. Breathe cleaner air. Lead the electric revolution.",
+      "Every Transbiz vehicle is engineered for African roads - built for resilience, designed for elegance. Cut your fuel bill to zero. Breathe cleaner air. Lead the electric revolution.",
     cta: { label: "Get In Touch", path: "/contact" },
     ctaSecondary: { label: "Our Technology", path: "/technology" },
     stat: { value: "0", unit: "g", label: "CO₂ Emissions" },
@@ -200,11 +198,49 @@ function HeroSection() {
       ))}
 
       {/* ── Cinematic gradient overlays ── */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[rgba(5,5,5,0.45)] to-[rgba(5,5,5,0.2)] z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[rgba(5,5,5,0.7)] via-[rgba(5,5,5,0.2)] to-transparent z-10" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[rgba(5,5,5,0.55)] to-[rgba(5,5,5,0.15)] z-10" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[rgba(5,5,5,0.8)] via-[rgba(5,5,5,0.25)] to-transparent z-10" />
+      {/* Mobile: extra bottom gradient for text readability */}
+      <div className="absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-[#050505] to-transparent z-10 md:hidden" />
 
-      {/* ── Slide counter + dots — top right ── */}
-      <div className="absolute top-28 right-6 md:right-12 z-30 flex flex-col items-end gap-1">
+      {/* ── TOP BAR: Live badge (mobile) + Slide counter (all) ── */}
+      <div className="absolute top-0 left-0 right-0 z-30 flex items-start justify-between px-5 pt-14 md:pt-0 md:static md:hidden">
+        {/* Live / Now Playing badge — mobile only */}
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10">
+          <span className="w-1.5 h-1.5 rounded-full bg-brand animate-pulse shadow-[0_0_6px_rgba(34,197,94,0.8)]" />
+          <span className="text-[10px] font-bold tracking-[0.18em] text-white/70 uppercase">Live</span>
+        </div>
+
+        {/* Slide counter — mobile */}
+        <div className="flex flex-col items-end gap-0.5">
+          <span className="text-[9px] font-bold tracking-[0.2em] text-white/35 uppercase">Scene</span>
+          <div className="flex items-baseline gap-0.5">
+            <span className="text-[32px] font-heading font-black text-white/90 leading-none tabular-nums">
+              {String(activeSlide + 1).padStart(2, "0")}
+            </span>
+            <span className="text-xs text-white/25 font-medium">
+              /{String(heroSlides.length).padStart(2, "0")}
+            </span>
+          </div>
+          <div className="flex gap-1.5 mt-0.5">
+            {heroSlides.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => goToSlide(i)}
+                className={`rounded-full transition-all duration-500 ${
+                  i === activeSlide
+                    ? "w-5 h-1 bg-brand shadow-[0_0_8px_rgba(34,197,94,0.7)]"
+                    : "w-1 h-1 bg-white/25"
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Slide counter — desktop only ── */}
+      <div className="absolute top-28 right-12 z-30 hidden md:flex flex-col items-end gap-1">
         <span className="text-[10px] font-bold tracking-[0.2em] text-white/35 uppercase">Scene</span>
         <div className="flex items-baseline gap-1">
           <span className="text-[42px] font-heading font-black text-white/90 leading-none tabular-nums">
@@ -233,20 +269,21 @@ function HeroSection() {
       {/* ── Main Content ── */}
       <div
         ref={contentRef}
-        className="relative z-20 flex flex-col justify-end flex-1 content-max-width w-full pb-36 md:pb-44"
+        className="relative z-20 flex flex-col justify-end flex-1 w-full pb-[155px] md:pb-44 px-5 sm:px-8 md:content-max-width md:px-[clamp(24px,5vw,80px)]"
       >
-        {/* Label pill */}
-        <div className="slide-anim mb-5">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/12 bg-white/5 backdrop-blur-sm text-[10px] md:text-xs font-bold tracking-[0.18em] text-white/70 uppercase">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand shadow-[0_0_6px_rgba(34,197,94,0.7)] animate-pulse" />
-            {slide.label}
+        {/* Mobile: label pill */}
+        <div className="slide-anim mb-4 md:hidden">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-brand/30 bg-brand/10 backdrop-blur-sm text-[10px] font-bold tracking-[0.15em] text-brand uppercase">
+            <span className="w-1 h-1 rounded-full bg-brand" />
+            Electric Fleet · Kenya
           </span>
         </div>
 
         {/* Headline */}
-        <h1 className="slide-anim font-heading font-black text-[clamp(40px,6.5vw,88px)] leading-[0.97] text-white max-w-[820px] tracking-tight">
+        <h1 className="slide-anim font-heading font-black text-[clamp(38px,6.5vw,88px)] leading-[1.0] md:leading-[0.97] text-white max-w-[820px] tracking-tight">
           {slide.title}{" "}
           <span
+            className="font-serif italic font-normal tracking-normal"
             style={{
               background: "linear-gradient(135deg, #22c55e 0%, #4ade80 55%, #86efac 100%)",
               WebkitBackgroundClip: "text",
@@ -259,29 +296,43 @@ function HeroSection() {
         </h1>
 
         {/* Body + CTAs + stat card */}
-        <div className="slide-anim mt-7 grid grid-cols-1 lg:grid-cols-[1fr_148px] gap-8 lg:gap-12 items-end max-w-[860px]">
+        <div className="slide-anim mt-5 md:mt-7 grid grid-cols-1 lg:grid-cols-[1fr_148px] gap-6 md:gap-8 lg:gap-12 items-end max-w-[860px]">
           <div>
-            <p className="text-sm md:text-[15px] text-white/60 leading-[1.85] max-w-[530px]">
+            <p className="text-[13px] md:text-[15px] text-white/60 leading-[1.75] md:leading-[1.85] max-w-[530px] line-clamp-3 md:line-clamp-none">
               {slide.subtitle}
             </p>
-            <div className="flex flex-wrap gap-3 mt-7">
+
+            {/* Mobile: slide stat pill floating above CTAs */}
+            <div className="flex items-center gap-3 mt-5 md:hidden">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/[0.06] border border-white/10 backdrop-blur-sm">
+                <span className="font-heading font-black text-2xl text-white leading-none">
+                  {slide.stat.value}<span className="text-brand text-base">{slide.stat.unit}</span>
+                </span>
+                <span className="text-[9px] font-bold uppercase tracking-[0.14em] text-white/40 leading-tight max-w-[56px]">
+                  {slide.stat.label}
+                </span>
+              </div>
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-5 md:mt-7">
               <Link
                 to={slide.cta.path}
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-brand text-[#050505] text-sm font-extrabold rounded-full hover:bg-[#4ade80] hover:-translate-y-0.5 transition-all duration-300 shadow-[0_0_28px_rgba(34,197,94,0.4)] hover:shadow-[0_0_40px_rgba(34,197,94,0.55)]"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-brand text-[#050505] text-sm font-extrabold rounded-full hover:bg-[#4ade80] hover:-translate-y-0.5 transition-all duration-300 shadow-[0_0_28px_rgba(34,197,94,0.4)] hover:shadow-[0_0_40px_rgba(34,197,94,0.55)]"
               >
                 {slide.cta.label}
                 <ArrowRight size={16} />
               </Link>
               <Link
                 to={slide.ctaSecondary.path}
-                className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/18 bg-white/5 backdrop-blur-sm text-white text-sm font-semibold rounded-full hover:bg-white/12 hover:-translate-y-0.5 transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-white/20 bg-white/5 backdrop-blur-sm text-white text-sm font-semibold rounded-full hover:bg-white/12 hover:-translate-y-0.5 transition-all duration-300"
               >
                 {slide.ctaSecondary.label}
               </Link>
             </div>
           </div>
 
-          {/* Big stat card */}
+          {/* Big stat card — desktop only */}
           <div className="hidden lg:flex flex-col items-center justify-center w-[148px] h-[148px] rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shrink-0 gap-1">
             <span className="font-heading font-black text-[46px] leading-none text-white">
               {slide.stat.value}
@@ -291,6 +342,16 @@ function HeroSection() {
               {slide.stat.label}
             </span>
           </div>
+        </div>
+
+        {/* Mobile: swipe hint */}
+        <div className="flex items-center gap-2 mt-5 md:hidden">
+          <div className="flex gap-1">
+            <div className="w-4 h-[2px] rounded-full bg-brand/60" />
+            <div className="w-2 h-[2px] rounded-full bg-white/20" />
+            <div className="w-2 h-[2px] rounded-full bg-white/20" />
+          </div>
+          <span className="text-[9px] font-semibold uppercase tracking-[0.18em] text-white/30">Swipe scenes</span>
         </div>
       </div>
 
@@ -304,18 +365,18 @@ function HeroSection() {
             style={{ width: "0%" }}
           />
         </div>
-        {/* Stats */}
-        <div className="bg-[rgba(5,5,5,0.78)] backdrop-blur-md">
-          <div className="content-max-width w-full">
+        {/* Stats — 2 cols on mobile, 4 on desktop */}
+        <div className="bg-[rgba(5,5,5,0.85)] backdrop-blur-md">
+          <div className="w-full px-0 md:content-max-width">
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/8">
               {heroStats.map((s, i) => (
-                <div key={i} className="flex flex-col items-center py-4 md:py-5 gap-0.5">
+                <div key={i} className="flex flex-col items-center py-3.5 md:py-5 gap-0.5">
                   <CountingNumber
                     target={s.target}
                     prefix={s.prefix}
                     suffix={s.suffix}
                   />
-                  <span className="text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.12em] text-white/35">
+                  <span className="text-[9px] md:text-[11px] font-semibold uppercase tracking-[0.12em] text-white/35 text-center px-2">
                     {s.label}
                   </span>
                 </div>
@@ -325,14 +386,17 @@ function HeroSection() {
         </div>
       </div>
 
-      {/* ── Scroll cue ── */}
-      <div className="absolute bottom-28 right-6 md:right-12 z-30 hidden md:flex flex-col items-center gap-2">
+      {/* ── Scroll cue — desktop only ── */}
+      <div className="absolute bottom-28 right-12 z-30 hidden md:flex flex-col items-center gap-2">
         <span className="text-[9px] font-bold uppercase tracking-[0.22em] text-white/28">
           Scroll
         </span>
         <div className="w-px h-10 bg-gradient-to-b from-white/0 via-white/25 to-white/0" />
         <ChevronDown size={13} className="text-white/28 animate-bounce" />
       </div>
+
+      {/* ── Mobile: subtle green bottom accent ── */}
+      <div className="absolute bottom-[88px] left-5 right-5 h-px bg-gradient-to-r from-transparent via-brand/30 to-transparent z-20 md:hidden" />
     </section>
   );
 }
@@ -1002,7 +1066,7 @@ function TrustedBy() {
               </span>
             </h2>
             <p className="mt-4 text-base text-gray-500 max-w-[500px] mx-auto leading-relaxed">
-              From Kenya's largest telecoms to pioneering fintechs — the continent's biggest names power their fleets with Transbiz.
+              From Kenya's largest telecoms to pioneering fintechs - the continent's biggest names power their fleets with Transbiz.
             </p>
           </ScrollReveal>
         </div>
